@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fluxo Operativo de Marketing · Kickoff Integrado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tr-green:#00563F;        /* TR Green primary */
+    --tr-green-bright:#1F8B5F; /* accent green */
+    --tr-green-soft:#D7EAE0;
+    --tr-orange:#FA8C1B;       /* TR Orange */
+    --tr-orange-deep:#E96C0E;
+    --tr-orange-soft:#FFE3C7;
+    --ink:#0B1410;
+    --ink-2:#33403B;
+    --paper:#F5F1E8;           /* paper / cream */
+    --paper-2:#EDE6D3;
+    --line:#1A2620;
+    --max:1240px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter Tight', system-ui, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.45;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(11,20,16,0.06) 1px, transparent 0);
+    background-size:24px 24px;
+  }
+
+  /* ---------- Reusable ---------- */
+  .container{max-width:var(--max);margin:0 auto;padding:0 32px}
+  .display{font-family:'Fraunces', serif;font-weight:800;line-height:0.95;letter-spacing:-0.02em}
+  .mono{font-family:'JetBrains Mono', monospace;font-size:0.78rem;letter-spacing:0.04em;text-transform:uppercase}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1.5px solid var(--ink);border-radius:999px;background:var(--paper);font-family:'JetBrains Mono', monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--tr-orange)}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--ink);color:var(--paper);
+    border-bottom:1.5px solid var(--ink);
+  }
+  .topbar-inner{display:flex;justify-content:space-between;align-items:center;height:54px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono', monospace;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase}
+  .brand-mark{width:22px;height:22px;background:var(--tr-orange);border-radius:50%;position:relative;overflow:hidden}
+  .brand-mark::after{content:"";position:absolute;inset:0;background:var(--tr-green-bright);clip-path:polygon(0 0,100% 0,0 100%)}
+  .nav{display:flex;gap:24px;font-family:'JetBrains Mono', monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em}
+  .nav a{color:var(--paper);text-decoration:none;opacity:0.7;transition:opacity .2s}
+  .nav a:hover{opacity:1;color:var(--tr-orange)}
+  @media (max-width:720px){.nav{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:80px 0 120px;
+    overflow:hidden;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+  .hero-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+
+  .hero h1{
+    font-size:clamp(3.2rem, 8vw, 7rem);
+    margin-bottom:24px;
+  }
+  .hero h1 .ital{font-style:italic;color:var(--tr-green)}
+  .hero h1 .orange{color:var(--tr-orange-deep)}
+  .hero h1 .strike{position:relative;display:inline-block}
+  .hero h1 .strike::after{
+    content:"";position:absolute;left:-4%;right:-4%;top:55%;height:14px;
+    background:var(--tr-orange);z-index:-1;transform:skewX(-8deg);
+    animation:swipeIn 1.2s cubic-bezier(.7,0,.3,1) .4s both;
+    transform-origin:left;
+  }
+  @keyframes swipeIn{from{transform:skewX(-8deg) scaleX(0)}to{transform:skewX(-8deg) scaleX(1)}}
+
+  .hero-sub{
+    font-size:1.15rem;color:var(--ink-2);max-width:560px;
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+  }
+  .hero-sub strong{color:var(--ink);font-weight:600;font-style:normal;font-family:'Inter Tight',sans-serif}
+
+  .hero-stats{
+    display:grid;grid-template-columns:1fr;gap:14px;
+  }
+  .stat{
+    border:1.5px solid var(--ink);
+    background:var(--paper);
+    padding:20px 22px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    position:relative;overflow:hidden;
+    transition:transform .3s ease;
+  }
+  .stat:hover{transform:translateX(-4px) translateY(-4px)}
+  .stat:hover::before{transform:translate(4px,4px)}
+  .stat::before{
+    content:"";position:absolute;inset:0;
+    border:1.5px solid var(--ink);
+    background:var(--tr-orange);
+    z-index:-1;transition:transform .3s ease;
+  }
+  .stat .num{font-family:'Fraunces',serif;font-weight:800;font-size:3rem;line-height:1;color:var(--tr-green)}
+  .stat .lbl{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-2);max-width:200px;text-align:right}
+
+  /* floating decorative shape */
+  .hero-blob{
+    position:absolute;right:-120px;top:-80px;width:420px;height:420px;
+    background:radial-gradient(circle at 30% 30%, var(--tr-orange) 0%, transparent 60%);
+    opacity:.5;filter:blur(20px);
+    animation:float 12s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes float{
+    0%,100%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-30px,40px) scale(1.05)}
+  }
+
+  /* scroll cue */
+  .scroll-cue{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-2);
+  }
+  .scroll-cue .line{width:1px;height:32px;background:var(--ink);animation:cueLine 1.6s ease-in-out infinite}
+  @keyframes cueLine{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+  /* ---------- Marquee / ticker ---------- */
+  .ticker{
+    background:var(--tr-green);
+    color:var(--paper);
+    border-bottom:1.5px solid var(--ink);
+    overflow:hidden;
+    padding:14px 0;
+  }
+  .ticker-track{
+    display:flex;gap:48px;white-space:nowrap;
+    animation:scroll 35s linear infinite;
+    font-family:'JetBrains Mono',monospace;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.12em;
+  }
+  .ticker-track span{display:flex;align-items:center;gap:14px}
+  .ticker-track .star{color:var(--tr-orange);font-size:1.1rem}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- Section header ---------- */
+  section{padding:100px 0;border-bottom:1.5px solid var(--ink);position:relative}
+  .section-head{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:end;margin-bottom:64px}
+  .section-num{font-family:'Fraunces',serif;font-weight:800;font-size:6rem;line-height:1;color:var(--tr-orange);font-style:italic}
+  .section-title{font-size:clamp(2rem,4vw,3.4rem)}
+  .section-kicker{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-2);margin-bottom:12px;display:block}
+
+  /* ---------- Principles ---------- */
+  .principles{background:var(--ink);color:var(--paper)}
+  .principles .section-num{color:var(--tr-orange)}
+  .principles .section-title{color:var(--paper)}
+  .principles .section-kicker{color:var(--tr-orange-soft)}
+  .principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media (max-width:900px){.principles-grid{grid-template-columns:1fr}}
+  .principle{
+    border:1.5px solid var(--paper);
+    padding:32px;
+    position:relative;
+    transition:all .3s;
+    background:var(--ink);
+  }
+  .principle:hover{background:var(--tr-green);transform:translateY(-6px)}
+  .principle .idx{
+    position:absolute;top:-12px;left:24px;
+    background:var(--tr-orange);color:var(--ink);
+    padding:4px 10px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;
+  }
+  .principle h3{font-family:'Fraunces',serif;font-size:1.5rem;margin:12px 0 14px;font-weight:600;line-height:1.15}
+  .principle p{color:var(--paper);opacity:0.8;font-size:0.95rem}
+  .principle .icon{
+    width:48px;height:48px;border:1.5px solid var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:1.5rem;font-style:italic;
+    margin-bottom:8px;
+  }
+
+  /* ---------- Three moments overview ---------- */
+  .moments-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1.5px solid var(--ink);background:var(--paper)}
+  @media (max-width:900px){.moments-row{grid-template-columns:1fr}}
+  .moment-cell{
+    padding:36px 28px;
+    border-right:1.5px solid var(--ink);
+    position:relative;cursor:pointer;
+    transition:background .3s;
+    min-height:260px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .moment-cell:last-child{border-right:none}
+  @media (max-width:900px){.moment-cell{border-right:none;border-bottom:1.5px solid var(--ink)}.moment-cell:last-child{border-bottom:none}}
+  .moment-cell:hover{background:var(--tr-green-soft)}
+  .moment-cell.orange:hover{background:var(--tr-orange-soft)}
+  .moment-num{font-family:'Fraunces',serif;font-size:5rem;line-height:1;font-weight:800;font-style:italic;color:var(--tr-green)}
+  .moment-cell.orange .moment-num{color:var(--tr-orange-deep)}
+  .moment-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;margin:8px 0 6px}
+  .moment-desc{font-size:0.9rem;color:var(--ink-2)}
+  .moment-arrow{align-self:flex-end;font-size:1.4rem;transition:transform .3s}
+  .moment-cell:hover .moment-arrow{transform:translateX(8px)}
+
+  /* ---------- Cronograma / Timeline ---------- */
+  .timeline-wrap{position:relative;padding:40px 0}
+  .timeline-axis{
+    position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--ink);
+    transform:translateX(-50%);
+  }
+  @media (max-width:900px){.timeline-axis{left:24px}}
+  .tl-item{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;
+    margin-bottom:48px;
+    opacity:0;transform:translateY(20px);
+    animation:tlReveal .8s ease forwards;
+  }
+  .tl-item:nth-child(1){animation-delay:.1s}
+  .tl-item:nth-child(2){animation-delay:.2s}
+  .tl-item:nth-child(3){animation-delay:.3s}
+  .tl-item:nth-child(4){animation-delay:.4s}
+  .tl-item:nth-child(5){animation-delay:.5s}
+  .tl-item:nth-child(6){animation-delay:.6s}
+  .tl-item:nth-child(7){animation-delay:.7s}
+  @keyframes tlReveal{to{opacity:1;transform:translateY(0)}}
+
+  .tl-day{
+    font-family:'Fraunces',serif;font-weight:800;font-size:2.2rem;font-style:italic;
+    background:var(--tr-orange);color:var(--ink);padding:14px 18px;border:1.5px solid var(--ink);
+    z-index:2;position:relative;min-width:90px;text-align:center;
+  }
+  .tl-card{
+    background:var(--paper);border:1.5px solid var(--ink);padding:22px 24px;
+    position:relative;transition:transform .3s;
+  }
+  .tl-card:hover{transform:scale(1.02);background:var(--tr-green-soft)}
+  .tl-card .role{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tr-green);margin-bottom:6px}
+  .tl-card h4{font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:6px;font-weight:600}
+  .tl-card .out{font-size:0.85rem;color:var(--ink-2)}
+  .tl-item.right .tl-card{grid-column:3}
+  .tl-item.left .tl-card{grid-column:1;text-align:right}
+  .tl-item.right .tl-day{grid-column:2}
+  .tl-item.left .tl-day{grid-column:2}
+  .tl-item .empty{visibility:hidden}
+
+  @media (max-width:900px){
+    .tl-item{grid-template-columns:60px 1fr;gap:16px}
+    .tl-item.left .tl-card,.tl-item.right .tl-card{grid-column:2;text-align:left}
+    .tl-day{grid-column:1;font-size:1.2rem;padding:10px;min-width:auto}
+    .tl-item .empty{display:none}
+  }
+
+  /* ---------- Momento 1 detalhe ---------- */
+  .moment-detail{background:var(--paper-2)}
+  .blocks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  @media (max-width:900px){.blocks-grid{grid-template-columns:1fr}}
+  .block-card{
+    background:var(--paper);border:1.5px solid var(--ink);
+    padding:28px 24px;position:relative;
+    transition:all .3s;
+    overflow:hidden;
+  }
+  .block-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:6px;
+    background:var(--tr-green);
+  }
+  .block-card.b2::before{background:var(--tr-orange)}
+  .block-card.b3::before{background:var(--ink)}
+  .block-card:hover{transform:translateY(-6px);box-shadow:8px 8px 0 var(--ink)}
+  .block-card .time{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--tr-orange-deep);letter-spacing:0.1em;font-weight:700}
+  .block-card h4{font-family:'Fraunces',serif;font-size:1.6rem;margin:10px 0 16px;font-weight:600}
+  .block-card ul{list-style:none;font-size:0.9rem}
+  .block-card ul li{padding:8px 0;border-bottom:1px dashed rgba(11,20,16,0.15);display:flex;gap:10px;align-items:flex-start}
+  .block-card ul li:last-child{border-bottom:none}
+  .block-card ul li::before{content:"→";color:var(--tr-orange);font-weight:700;flex-shrink:0}
+
+  /* Participants */
+  .parts-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;margin:60px 0 24px}
+  .parts-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(160px,1fr));gap:14px}
+  .part-chip{
+    border:1.5px solid var(--ink);padding:16px 18px;background:var(--paper);
+    transition:all .25s;cursor:default;
+  }
+  .part-chip:hover{background:var(--ink);color:var(--paper);transform:translateY(-3px)}
+  .part-chip:hover .part-role{color:var(--tr-orange)}
+  .part-name{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tr-orange-deep);margin-bottom:4px}
+  .part-role{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;line-height:1.2}
+
+  /* ---------- Momento 2 ---------- */
+  .estr-tat{background:var(--ink);color:var(--paper)}
+  .estr-tat .section-num{color:var(--tr-orange)}
+  .estr-tat .section-title{color:var(--paper)}
+  .estr-tat .section-kicker{color:var(--tr-orange-soft)}
+  .deliverables-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px,1fr));gap:0;border:1.5px solid var(--paper);margin-top:48px}
+  .deliv-cell{
+    padding:28px;
+    border-right:1.5px solid var(--paper);
+    border-bottom:1.5px solid var(--paper);
+    transition:background .3s;
+    position:relative;
+  }
+  .deliv-cell:hover{background:var(--tr-green)}
+  .deliv-cell .num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:800;color:var(--tr-orange);font-style:italic;line-height:1}
+  .deliv-cell h5{font-family:'Fraunces',serif;font-size:1.1rem;margin:8px 0 6px;font-weight:600}
+  .deliv-cell p{font-size:0.85rem;opacity:0.75}
+
+  /* ---------- Measure & Share ---------- */
+  .measure{background:linear-gradient(180deg, var(--tr-green-soft) 0%, var(--paper) 100%)}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1.5px solid var(--ink);margin-top:48px}
+  @media (max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+  .kpi{
+    padding:32px 24px;border-right:1.5px solid var(--ink);background:var(--paper);
+    transition:background .3s;
+  }
+  .kpi:last-child{border-right:none}
+  .kpi:hover{background:var(--tr-orange-soft)}
+  .kpi .time-mark{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--tr-orange-deep);letter-spacing:0.1em;font-weight:700}
+  .kpi .big{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:800;color:var(--tr-green);font-style:italic;line-height:1;margin:8px 0}
+  .kpi h6{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;margin-bottom:4px}
+  .kpi p{font-size:0.82rem;color:var(--ink-2)}
+
+  /* ---------- RACI Matrix ---------- */
+  .raci-wrap{margin-top:48px;overflow-x:auto;border:1.5px solid var(--ink)}
+  table.raci{width:100%;border-collapse:collapse;font-family:'Inter Tight',sans-serif;font-size:0.85rem;min-width:760px}
+  table.raci th, table.raci td{padding:14px 12px;border:1px solid var(--ink);text-align:center}
+  table.raci th{background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase}
+  table.raci tr:nth-child(even) td{background:rgba(0,86,63,0.04)}
+  table.raci td.phase{text-align:left;font-family:'Fraunces',serif;font-weight:600;font-size:0.95rem;background:var(--paper-2) !important}
+  .raci-cell{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.75rem}
+  .r{background:var(--tr-green);color:var(--paper)}
+  .a{background:var(--tr-orange);color:var(--ink)}
+  .c{background:var(--ink);color:var(--paper)}
+  .i{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--ink-2)}
+  .raci-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem}
+  .raci-legend span{display:inline-flex;align-items:center;gap:6px}
+
+  /* ---------- Atritos / Solutions ---------- */
+  .atritos{background:var(--paper-2)}
+  .atrito-list{display:grid;grid-template-columns:1fr;gap:0;margin-top:48px;border:1.5px solid var(--ink)}
+  .atrito-row{
+    display:grid;grid-template-columns:auto 1fr 1.5fr;gap:0;
+    border-bottom:1.5px solid var(--ink);background:var(--paper);
+    transition:background .3s;
+  }
+  .atrito-row:last-child{border-bottom:none}
+  .atrito-row:hover{background:var(--tr-orange-soft)}
+  @media (max-width:760px){.atrito-row{grid-template-columns:1fr}.atrito-row > *{border-right:none !important}}
+  .atrito-row > *{padding:28px 24px;border-right:1.5px solid var(--ink)}
+  .atrito-row > *:last-child{border-right:none}
+  .atrito-num{
+    font-family:'Fraunces',serif;font-size:3rem;font-weight:800;color:var(--tr-orange-deep);font-style:italic;line-height:1;
+    min-width:80px;display:flex;align-items:center;justify-content:center;
+  }
+  .atrito-problem h5{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tr-orange-deep);margin-bottom:8px}
+  .atrito-problem p{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;line-height:1.25}
+  .atrito-solution h5{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tr-green);margin-bottom:8px}
+  .atrito-solution ul{list-style:none;font-size:0.9rem}
+  .atrito-solution ul li{padding:4px 0 4px 22px;position:relative;color:var(--ink-2)}
+  .atrito-solution ul li::before{content:"✓";position:absolute;left:0;top:4px;color:var(--tr-green);font-weight:700}
+
+  /* ---------- Sprints ---------- */
+  .sprints{background:var(--ink);color:var(--paper)}
+  .sprints .section-num{color:var(--tr-orange)}
+  .sprints .section-title{color:var(--paper)}
+  .sprints .section-kicker{color:var(--tr-orange-soft)}
+  .sprint-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1.5px solid var(--paper);margin-top:48px}
+  @media (max-width:900px){.sprint-row{grid-template-columns:1fr}}
+  .sprint-cell{
+    padding:36px 28px;border-right:1.5px solid var(--paper);
+    position:relative;transition:background .3s;
+    min-height:240px;
+  }
+  .sprint-cell:last-child{border-right:none}
+  @media (max-width:900px){.sprint-cell{border-right:none;border-bottom:1.5px solid var(--paper)}.sprint-cell:last-child{border-bottom:none}}
+  .sprint-cell:hover{background:var(--tr-green)}
+  .sprint-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:var(--tr-orange);text-transform:uppercase}
+  .sprint-num{font-family:'Fraunces',serif;font-size:5rem;font-weight:800;font-style:italic;line-height:1;margin:8px 0;color:var(--paper)}
+  .sprint-cell h5{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;margin-bottom:8px}
+  .sprint-cell p{opacity:0.8;font-size:0.92rem}
+
+  /* ---------- Closing CTA ---------- */
+  .closing{
+    background:var(--tr-orange);color:var(--ink);text-align:center;
+    padding:120px 0;border-bottom:none;
+  }
+  .closing h2{
+    font-family:'Fraunces',serif;font-weight:800;font-size:clamp(2.4rem,6vw,5rem);
+    line-height:1;margin-bottom:24px;letter-spacing:-0.02em;
+  }
+  .closing h2 .ital{font-style:italic;color:var(--tr-green)}
+  .closing p{max-width:640px;margin:0 auto 40px;font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;color:var(--ink)}
+  .closing .indicator{
+    display:inline-block;padding:18px 36px;background:var(--ink);color:var(--paper);
+    font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;font-size:0.85rem;font-weight:600;
+    border:1.5px solid var(--ink);transition:all .3s;cursor:pointer;
+  }
+  .closing .indicator:hover{background:var(--tr-green);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:32px 0;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .accent{color:var(--tr-orange)}
+
+  /* ---------- Reveal animation utility ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>TR · Marketing Ops</span>
+    </div>
+    <nav class="nav">
+      <a href="#principios">Princípios</a>
+      <a href="#momentos">Momentos</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#raci">RACI</a>
+      <a href="#atritos">Atritos</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="container">
+    <div class="hero-meta">
+      <span class="pill"><span class="dot"></span>Maio · 2026</span>
+      <span class="pill" style="border-color:var(--tr-green);color:var(--tr-green)">v1.0 · First draft</span>
+      <span class="pill" style="border-color:var(--tr-orange-deep);color:var(--tr-orange-deep)">Estratégia + Tático</span>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <h1 class="display">
+          Fluxo<br/>
+          <span class="ital">operativo</span> de<br/>
+          <span class="strike">marketing.</span>
+        </h1>
+        <p class="hero-sub">
+          Kickoff integrado, estratégia-tático e measure &amp; share — três momentos conectados que substituem o <strong>ping-pong de reviews</strong> por <strong>decisões na sala</strong>.
+        </p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="num">2h30</div>
+          <div class="lbl">Kickoff Integrado · única reunião de entrada</div>
+        </div>
+        <div class="stat">
+          <div class="num">2</div>
+          <div class="lbl">Gates formais com dono único</div>
+        </div>
+        <div class="stat">
+          <div class="num">7d</div>
+          <div class="lbl">Do Kickoff ao plano consolidado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Estratégia + Tático na mesma sala <span class="star">✦</span></span>
+    <span>Demand Gen como fio condutor <span class="star">✦</span></span>
+    <span>Gates curtos com dono único <span class="star">✦</span></span>
+    <span>Menos reuniões, mais decisão <span class="star">✦</span></span>
+    <span>Estratégia + Tático na mesma sala <span class="star">✦</span></span>
+    <span>Demand Gen como fio condutor <span class="star">✦</span></span>
+    <span>Gates curtos com dono único <span class="star">✦</span></span>
+    <span>Menos reuniões, mais decisão <span class="star">✦</span></span>
+  </div>
+</div>
+
+<!-- ============ PRINCIPIOS ============ -->
+<section class="principles" id="principios">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">00</div>
+      <div>
+        <span class="section-kicker">Antes de tudo</span>
+        <h2 class="section-title display">Três regras<br/><em>inegociáveis.</em></h2>
+      </div>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle reveal">
+        <span class="idx">01</span>
+        <div class="icon">≡</div>
+        <h3>Estratégia e tático nunca se separam.</h3>
+        <p>As áreas constroem juntas, não em série. Isso elimina o ping-pong de reviews entre planejamento e execução.</p>
+      </div>
+      <div class="principle reveal">
+        <span class="idx">02</span>
+        <div class="icon">↯</div>
+        <h3>Demand Gen é o fio condutor.</h3>
+        <p>Facilita as reuniões, compila o one-pager e garante coerência. Não é mais um líder de área — é o dono do processo.</p>
+      </div>
+      <div class="principle reveal">
+        <span class="idx">03</span>
+        <div class="icon">●</div>
+        <h3>Gates curtos com dono único.</h3>
+        <p>Em cada gate, uma pessoa decide. Sem comitê, sem aprovação por consenso, sem travas de revisão paralela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 MOMENTOS OVERVIEW ============ -->
+<section id="momentos">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div>
+        <span class="section-kicker">Visão geral</span>
+        <h2 class="section-title display">Três momentos,<br/><em>um fio só.</em></h2>
+      </div>
+    </div>
+
+    <div class="moments-row">
+      <a href="#momento1" class="moment-cell" style="text-decoration:none;color:inherit">
+        <div>
+          <div class="moment-num">01</div>
+          <h3 class="moment-title">Kickoff Integrado</h3>
+          <p class="moment-desc">Entrada de PMM/GTM e desenho da estratégia integrada na sala. Todos os líderes, um briefing só.</p>
+        </div>
+        <div class="moment-arrow">→</div>
+      </a>
+      <a href="#momento2" class="moment-cell orange" style="text-decoration:none;color:inherit">
+        <div>
+          <div class="moment-num">02</div>
+          <h3 class="moment-title">Estratégia · Tático</h3>
+          <p class="moment-desc">Apresentação dos planos específicos de cada área e consolidação. Reunião de validação, não construção.</p>
+        </div>
+        <div class="moment-arrow">→</div>
+      </a>
+      <a href="#momento3" class="moment-cell" style="text-decoration:none;color:inherit">
+        <div>
+          <div class="moment-num">03</div>
+          <h3 class="moment-title">Measure &amp; Share</h3>
+          <p class="moment-desc">Leitura de resultado com stakeholders e VPs, alimentando o próximo ciclo com aprendizados acionáveis.</p>
+        </div>
+        <div class="moment-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CRONOGRAMA ============ -->
+<section id="cronograma">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div>
+        <span class="section-kicker">Cronograma de referência</span>
+        <h2 class="section-title display">Do D-3 ao<br/>pós-campanha.</h2>
+      </div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="timeline-axis"></div>
+
+      <div class="tl-item right">
+        <div class="empty"></div>
+        <div class="tl-day">D-3</div>
+        <div class="tl-card">
+          <div class="role">PMM + Demand Gen</div>
+          <h4>Pré-trabalho enviado</h4>
+          <div class="out">Material distribuído 48h antes do Kickoff</div>
+        </div>
+      </div>
+
+      <div class="tl-item left">
+        <div class="tl-card">
+          <div class="role">Demand Gen · facilita</div>
+          <h4>Kickoff Integrado (2h30)</h4>
+          <div class="out">Estratégia esboçada · 3-5 pilares na sala</div>
+        </div>
+        <div class="tl-day">D-0</div>
+        <div class="empty"></div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="empty"></div>
+        <div class="tl-day">D+2</div>
+        <div class="tl-card">
+          <div class="role">Demand Gen · dono</div>
+          <h4>One-pager estratégico</h4>
+          <div class="out">Documento assinado por todos os líderes · <strong>Gate 1</strong></div>
+        </div>
+      </div>
+
+      <div class="tl-item left">
+        <div class="tl-card">
+          <div class="role">Cada líder · individual</div>
+          <h4>Desdobramento por área</h4>
+          <div class="out">Plano específico por frente — D+2 a D+6</div>
+        </div>
+        <div class="tl-day">D+2→6</div>
+        <div class="empty"></div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="empty"></div>
+        <div class="tl-day">D+7</div>
+        <div class="tl-card">
+          <div class="role">Demand Gen · facilita</div>
+          <h4>Reunião Estratégia-Tático (2h)</h4>
+          <div class="out">Plano consolidado · <strong>Gate 2</strong></div>
+        </div>
+      </div>
+
+      <div class="tl-item left">
+        <div class="tl-card">
+          <div class="role">Cada líder · execução</div>
+          <h4>Execução + checkpoints</h4>
+          <div class="out">Entregas no prazo · status semanal</div>
+        </div>
+        <div class="tl-day">D+8</div>
+        <div class="empty"></div>
+      </div>
+
+      <div class="tl-item right">
+        <div class="empty"></div>
+        <div class="tl-day">PÓS</div>
+        <div class="tl-card">
+          <div class="role">Demand Gen + PMM</div>
+          <h4>Measure &amp; Share (1h30)</h4>
+          <div class="out">Aprendizados documentados para o próximo ciclo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOMENTO 1 DETALHE ============ -->
+<section class="moment-detail" id="momento1">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div>
+        <span class="section-kicker">Momento 01 · em profundidade</span>
+        <h2 class="section-title display">Kickoff <em>Integrado.</em></h2>
+      </div>
+    </div>
+
+    <p style="max-width:760px;font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink-2);margin-bottom:24px">
+      Reunião única de 2h30 que substitui a sequência de briefings separados por área. PMM apresenta o produto e a estratégia de GTM, e cada líder usa a sala para esboçar sua frente — saindo dali com <strong style="color:var(--ink);font-style:normal;font-family:'Inter Tight',sans-serif">alinhamento</strong>, não com <strong style="color:var(--ink);font-style:normal;font-family:'Inter Tight',sans-serif">mais perguntas</strong>.
+    </p>
+
+    <div class="blocks-grid">
+      <div class="block-card b1 reveal">
+        <span class="time">Bloco 01 · 45 min</span>
+        <h4>Contexto</h4>
+        <ul>
+          <li>PMM apresenta produto, problema, público, GTM, momento de mercado (30 min)</li>
+          <li>Q&amp;A focado em entender, não em opinar (15 min)</li>
+        </ul>
+      </div>
+      <div class="block-card b2 reveal">
+        <span class="time">Bloco 02 · 75 min</span>
+        <h4>Desenho integrado</h4>
+        <ul>
+          <li>Cada líder esboça sua frente em template padrão (40 min, paralelo)</li>
+          <li>Round de apresentação rápida — 5 min por líder (35 min)</li>
+        </ul>
+      </div>
+      <div class="block-card b3 reveal">
+        <span class="time">Bloco 03 · 30 min</span>
+        <h4>Costura</h4>
+        <ul>
+          <li>Demand Gen lidera: onde as frentes se conectam, onde se atropelam</li>
+          <li>Trade-offs decididos na sala — com quem fica o quê e por quê</li>
+          <li>Acordo sobre os 3-5 pilares da estratégia integrada</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="parts-title">Participantes obrigatórios</h3>
+    <div class="parts-grid">
+      <div class="part-chip"><div class="part-name">Estratégia</div><div class="part-role">PMM / Produto</div></div>
+      <div class="part-chip"><div class="part-name">Facilita</div><div class="part-role">Demand Gen</div></div>
+      <div class="part-chip"><div class="part-name">Aquisição</div><div class="part-role">Growth</div></div>
+      <div class="part-chip"><div class="part-name">Marca</div><div class="part-role">Branded Content</div></div>
+      <div class="part-chip"><div class="part-name">Orgânico</div><div class="part-role">Conteúdo</div></div>
+      <div class="part-chip"><div class="part-name">Imprensa</div><div class="part-role">PR</div></div>
+      <div class="part-chip"><div class="part-name">Produção</div><div class="part-role">Studio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOMENTO 2 ============ -->
+<section class="estr-tat" id="momento2">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <div>
+        <span class="section-kicker">Momento 02 · D+7</span>
+        <h2 class="section-title display">Estratégia<br/><em>· Tático.</em></h2>
+      </div>
+    </div>
+
+    <p style="max-width:720px;font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;opacity:0.85;margin-bottom:16px">
+      Cinco dias depois do Kickoff, cada área traz seu plano específico desdobrado a partir do one-pager. A reunião é de <strong style="font-style:normal;font-family:'Inter Tight',sans-serif;color:var(--tr-orange)">apresentação e validação</strong> — não de construção. Quem chegar sem plano detalhado, não entra.
+    </p>
+
+    <div class="deliverables-grid">
+      <div class="deliv-cell">
+        <div class="num">01</div>
+        <h5>Lista de ações</h5>
+        <p>O que vai ser feito, na sequência exata.</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">02</div>
+        <h5>Plano detalhado</h5>
+        <p>Canais, formatos, fases, timing.</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">03</div>
+        <h5>Número de peças</h5>
+        <p>Quantidade exata por formato (P, M, G).</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">04</div>
+        <h5>Cronograma</h5>
+        <p>Marcos e dependências mapeadas.</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">05</div>
+        <h5>Time e capacidade</h5>
+        <p>Quem faz o quê — alocação real.</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">06</div>
+        <h5>KPIs da frente</h5>
+        <p>Ligados aos KPIs do one-pager.</p>
+      </div>
+      <div class="deliv-cell">
+        <div class="num">07</div>
+        <h5>Riscos + plano B</h5>
+        <p>O que pode falhar e como contornar.</p>
+      </div>
+      <div class="deliv-cell" style="background:var(--tr-orange);color:var(--ink)">
+        <div class="num" style="color:var(--ink)">✓</div>
+        <h5 style="color:var(--ink)">Gate 2</h5>
+        <p style="opacity:1;color:var(--ink)">Plano consolidado validado na sala.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOMENTO 3 / MEASURE ============ -->
+<section class="measure" id="momento3">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <div>
+        <span class="section-kicker">Momento 03 · 1h30</span>
+        <h2 class="section-title display">Measure<br/>&amp; <em>Share.</em></h2>
+      </div>
+    </div>
+
+    <p style="max-width:720px;font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;color:var(--ink-2);margin-bottom:16px">
+      Leitura de resultados com stakeholders, VPs e líderes. Audiência mais ampla. Dono: <strong style="font-style:normal;font-family:'Inter Tight',sans-serif;color:var(--tr-green)">Demand Gen + PMM</strong>.
+    </p>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="time-mark">20 min</div>
+        <div class="big">01</div>
+        <h6>Resultado vs. KPIs</h6>
+        <p>Números crus do one-pager, sem filtro.</p>
+      </div>
+      <div class="kpi">
+        <div class="time-mark">30 min</div>
+        <div class="big">02</div>
+        <h6>Leitura por frente</h6>
+        <p>Cada líder em 5 min: o que funcionou, o que não.</p>
+      </div>
+      <div class="kpi">
+        <div class="time-mark">20 min</div>
+        <div class="big">03</div>
+        <h6>Aprendizados</h6>
+        <p>3-5 takeaways acionáveis consolidados.</p>
+      </div>
+      <div class="kpi">
+        <div class="time-mark">20 min</div>
+        <div class="big">04</div>
+        <h6>Próximos passos</h6>
+        <p>O que vai para o próximo ciclo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RACI ============ -->
+<section id="raci">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <div>
+        <span class="section-kicker">Matriz RACI · papéis por fase</span>
+        <h2 class="section-title display">Quem faz, quem<br/><em>decide.</em></h2>
+      </div>
+    </div>
+
+    <div class="raci-wrap">
+      <table class="raci">
+        <thead>
+          <tr>
+            <th style="text-align:left">Fase</th>
+            <th>PMM</th>
+            <th>Demand Gen</th>
+            <th>Growth</th>
+            <th>Conteúdo</th>
+            <th>Branded / PR</th>
+            <th>Studio</th>
+            <th>Ops &amp; Analytics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="phase">Pré-trabalho</td>
+            <td><span class="raci-cell r">R</span><span class="raci-cell a" style="margin-left:4px">A</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">Kickoff Integrado</td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell a">A</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">One-pager estratégico</td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell r">R</span><span class="raci-cell a" style="margin-left:4px">A</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">Desdobramento</td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell a">A</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">Estratégia-Tático</td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell a">A</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">Execução</td>
+            <td><span class="raci-cell i">I</span></td>
+            <td><span class="raci-cell a">A</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell i">I</span></td>
+          </tr>
+          <tr>
+            <td class="phase">Measure &amp; Share</td>
+            <td><span class="raci-cell r">R</span></td>
+            <td><span class="raci-cell r">R</span><span class="raci-cell a" style="margin-left:4px">A</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell c">C</span></td>
+            <td><span class="raci-cell r">R</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="raci-legend">
+      <span><span class="raci-cell r">R</span> Responsável (faz)</span>
+      <span><span class="raci-cell a">A</span> Aprovador (decide)</span>
+      <span><span class="raci-cell c">C</span> Consultado</span>
+      <span><span class="raci-cell i">I</span> Informado</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATRITOS ============ -->
+<section class="atritos" id="atritos">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <div>
+        <span class="section-kicker">Como o fluxo elimina os 3 atritos atuais</span>
+        <h2 class="section-title display">Problema →<br/><em>Solução.</em></h2>
+      </div>
+    </div>
+
+    <div class="atrito-list">
+      <div class="atrito-row">
+        <div class="atrito-num">01</div>
+        <div class="atrito-problem">
+          <h5>Atrito atual</h5>
+          <p>Idas e vindas entre Estratégia e Tático</p>
+        </div>
+        <div class="atrito-solution">
+          <h5>Como o fluxo resolve</h5>
+          <ul>
+            <li>Kickoff coloca todos os líderes na mesma sala, com o mesmo briefing</li>
+            <li>Estratégia é desenhada na presença de quem vai executar — sem tradução</li>
+            <li>One-pager assinado por todos antes do desdobramento começar</li>
+          </ul>
+        </div>
+      </div>
+      <div class="atrito-row">
+        <div class="atrito-num">02</div>
+        <div class="atrito-problem">
+          <h5>Atrito atual</h5>
+          <p>Aprovações que travam o fluxo</p>
+        </div>
+        <div class="atrito-solution">
+          <h5>Como o fluxo resolve</h5>
+          <ul>
+            <li>Apenas 2 gates formais — sem reviews intermediários</li>
+            <li>Cada gate tem um dono único que decide (não por consenso)</li>
+            <li>SLA explícito: 48h para o Gate 1, 7 dias para o Gate 2</li>
+          </ul>
+        </div>
+      </div>
+      <div class="atrito-row">
+        <div class="atrito-num">03</div>
+        <div class="atrito-problem">
+          <h5>Atrito atual</h5>
+          <p>Falta de clareza de papéis</p>
+        </div>
+        <div class="atrito-solution">
+          <h5>Como o fluxo resolve</h5>
+          <ul>
+            <li>Matriz RACI fixa por fase — toda fase tem 1 R e 1 A</li>
+            <li>Demand Gen é dono do processo, separando facilitação de execução</li>
+            <li>PMM tem responsabilidade clara: input (Kickoff) e leitura (Measure)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPRINTS ============ -->
+<section class="sprints">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">08</div>
+      <div>
+        <span class="section-kicker">Como começar</span>
+        <h2 class="section-title display">Implementação<br/>em <em>três sprints.</em></h2>
+      </div>
+    </div>
+
+    <div class="sprint-row">
+      <div class="sprint-cell">
+        <span class="sprint-tag">Sprint 01</span>
+        <div class="sprint-num">▲</div>
+        <h5>Piloto</h5>
+        <p>Rodar o fluxo completo em uma campanha pequena, com retro detalhada ao fim.</p>
+      </div>
+      <div class="sprint-cell">
+        <span class="sprint-tag">Sprint 02</span>
+        <div class="sprint-num">◆</div>
+        <h5>Ajustar templates</h5>
+        <p>Refinar one-pager e templates de frente individual com base no aprendizado do piloto.</p>
+      </div>
+      <div class="sprint-cell">
+        <span class="sprint-tag">Sprint 03</span>
+        <div class="sprint-num">●</div>
+        <h5>Escalar</h5>
+        <p>Aplicar a todas as campanhas, com Demand Gen treinado como facilitador oficial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="closing">
+  <div class="container">
+    <h2 class="display">Indicador de <em>sucesso</em>.</h2>
+    <p>Tempo entre Kickoff e Go-live menor do que o atual, com menos retrabalho e menos reuniões intermediárias.</p>
+    <div class="indicator">→ Próximo passo · alinhar piloto</div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container footer-inner">
+    <div>TR <span class="accent">·</span> Marketing Operations <span class="accent">·</span> Fluxo v1.0</div>
+    <div>First draft <span class="accent">·</span> Maio / 2026</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  reveals.forEach(r => io.observe(r));
+
+  // Smooth scroll for nav already via CSS, but ensure consistent
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if(href.length > 1){
+        e.preventDefault();
+        document.querySelector(href)?.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
